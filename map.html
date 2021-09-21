@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/build/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/css/ol.css">
+    <script src="https://unpkg.com/gyronorm@2.0.6/dist/gyronorm.complete.min.js"></script>
+    <title>OL test</title>
+</head>
+<body style="margin: 0; padding: 0;">
+<div id="map" class="map"></div>
+
+<div id="media_div">
+    <div id="title"></div>
+    <div id="audio-content"></div>
+    <div id="video-content"></div>
+    <div id="text-content"></div>
+</div>
+
+<div id="div_p">
+    <p>
+        position : <code id="position"></code><br>
+        clicked : <code id="click_pos"></code><br>
+    </p>
+</div>
+<div id="media_button_div">
+    <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
+</div>
+<div id="info-bar" class="info-bar">
+    <div id="nav_div">
+        <div id="nav_img">
+            <img id="nav-icon" src="js/ui/forward.png" alt="Forward" width="65" height="65">
+        </div>
+        <div id="nav_txt">Loading...</div>
+    </div>
+</div>
+<script type="module" id="app" src="./js/app.js"></script>
+</body>
+</html>
