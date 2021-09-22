@@ -8,7 +8,7 @@
     "ol": "^6.7.0"
   },
   "scripts": {
-    "start": "parcel map.html",
-    "build": "parcel build --public-url . map.html"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   }
 }
