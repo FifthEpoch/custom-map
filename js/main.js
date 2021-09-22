@@ -1,10 +1,10 @@
 import 'ol/ol.css';
-import Feature from 'ol/Feature';
-import GeoJSON from 'ol/format/GeoJSON';
-import Geolocation from 'ol/Geolocation';
-import Map from 'ol/Map';
+// import Feature from 'ol/Feature';
+// import GeoJSON from 'ol/format/GeoJSON';
+// import Geolocation from 'ol/Geolocation';
+import { Map, View, Feature, GeoJSON, Geolocation } from 'ol';
 import Point from 'ol/geom/Point';
-import View from 'ol/View';
+// import View from 'ol/View';
 import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import {OSM, Vector as VectorSource} from 'ol/source';
 import {Tile as TileLayer, Vector as VectorLayer, VectorImage as VectorImg} from 'ol/layer';
