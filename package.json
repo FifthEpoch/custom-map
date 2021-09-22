@@ -1,12 +1,11 @@
 {
   "name": "map",
-  "type": "module",
-  "dependencies": {
-    "ol": "^6.7.0"
-  },
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",
     "parcel": "^2.0.0-beta.1"
+  },
+  "dependencies": {
+    "ol": "^6.7.0"
   },
   "scripts": {
     "start": "parcel map.html",
