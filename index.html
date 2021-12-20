@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/app.css" type="text/css">
+    <link rel="stylesheet" href="css/sass/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/css/ol.css" type="text/css">
 
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/build/ol.js"></script>
@@ -16,30 +16,36 @@
     <title>Custom Map</title>
 </head>
 <body style="margin: 0; padding: 0;">
-<div id="map" class="map"></div>
+<div id="map_div" class="map"></div>
 <div id="media_div">
-    <div id="title"></div>
-    <div id="audio-content"></div>
-    <div id="video-content"></div>
-    <div id="text-content"></div>
+    <section id="media-section">
+        <div id="title"></div>
+        <div id="audio-content"></div>
+        <div id="video-content"></div>
+        <div id="text-content"></div>
+    </section>
 </div>
 
-<div id="div_p">
+<div id="click_pos_div">
     <p>
         position : <code id="position"></code><br>
         clicked : <code id="click_pos"></code><br>
     </p>
 </div>
-<div id="media_button_div">
-    <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
+<div id="show_media_button_div">
+    <section id="show_media_button_section">
+        <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
+    </section>
 </div>
-<div id="info-bar" class="info-bar">
-    <div id="nav_div">
-        <div id="nav_img">
-            <img id="nav-icon" src="js/ui/forward.png" alt="Forward" width="65" height="65">
-        </div>
+<div id="menu_bar_div">
+    <section id="menu_bar_section" class="menu_bar_class">
+        <div id="nav_div">
+            <div id="nav_img">
+                <img id="nav-icon" src="js/ui/forward.png" alt="Forward" width="65" height="65">
+            </div>
         <div id="nav_txt">Loading...</div>
-    </div>
+        </div>
+    </section>
 </div>
 <script src="js/main.js" type="module"></script>
 </body>

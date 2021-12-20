@@ -1,0 +1,43 @@
+
+$default-font-color: #D3E6D6;
+$default-bg-color: #4155b5;
+
+$button-font-color: #2F2125;
+$default-button-bg-color: #4aa74a;
+
+@mixin mq($size)
+{
+  @media only screen and (min-width: $size)
+  {
+    @content;
+  }
+}
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body
+{
+  font-size: 16px;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  color: $default-font-color;
+  width: 100%;
+  min-height: 100%;
+  @include mq(768px)
+  {
+    font-size: 20px;
+  }
+}
+
+section
+{
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+  border: none;
+}
+

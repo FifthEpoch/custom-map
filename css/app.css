@@ -1,4 +1,4 @@
-#div_p {
+#click_pos_div {
     font-family: "Helvetica Neue", "Arial", sans-serif;
     font-size: 16px;
     color: #0000cd;
@@ -16,7 +16,7 @@
     z-index: 2;
 }
 
-.info-bar {
+.menu_bar_class {
     font-size: 16px;
     position: fixed;
     bottom: 0;
@@ -28,8 +28,8 @@
     z-index: 3;
 }
 .ol-zoom-in .ol-zoom-out {
-    width: 100px;
-    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
 }
 .locate {
     top: 5em;
@@ -49,7 +49,7 @@
     margin: 4px 0px;
     cursor: pointer;
 }
-#media_button_div {
+#show_media_button_section {
     display: none;
     position: fixed;
     width: 33%;
