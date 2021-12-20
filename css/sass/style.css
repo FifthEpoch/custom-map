@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 16px;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  color: #D3E6D6;
+  width: 100%;
+  min-height: 100%;
+}
+@media only screen and (min-width: 768px) {
+  html, body {
+    font-size: 20px;
+  }
+}
+
+section {
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+  border: none;
+}
+
+.button {
+  width: 100%;
+  height: 10vh;
+  min-width: 56px;
+  min-height: 48px;
+  font-family: "Syne Mono", monospace;
+  background-color: #4aa74a;
+  color: #2F2125;
+  outline: none;
+  padding: 0 0.1rem;
+}
+@media only screen and (min-width: 768px) {
+  .button {
+    padding: 0 0.5rem;
+  }
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  filter: brightness(120%);
+}
+
+.ol-zoom-in .ol-zoom-out {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.map {
+  width: 100vw;
+  height: 100vh;
+}
+
+.menu_bar_class {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 10vh;
+  min-height: 48px;
+  padding: 0.75rem;
+}
+.click_pos_div {
+  color: #c2c2ff;
+  position: absolute;
+  left: 10px;
+  bottom: 250px;
+}
+
+/*# sourceMappingURL=style.css.map */
