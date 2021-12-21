@@ -10,6 +10,7 @@ html, body {
   color: #D3E6D6;
   width: 100vw;
   min-height: 100vh;
+  overflow: hidden;
 }
 @media only screen and (min-width: 768px) {
   html, body {
@@ -59,7 +60,7 @@ html, body {
 
 .map {
   width: 100vw;
-  height: 89vh;
+  height: 100vh;
   top: 0;
   z-index: 0;
 }
@@ -91,6 +92,16 @@ html, body {
   position: fixed;
   bottom: 2rem;
   left: 5rem;
+}
+
+#media-section {
+  display: none;
+  position: fixed;
+  width: 100%;
+  min-height: 48px;
+  max-height: 700px;
+  bottom: 11vh;
+  background-color: #4aa74a;
 }
 
 .click_pos_div {

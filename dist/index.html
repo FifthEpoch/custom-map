@@ -1,1 +1,51 @@
-<!DOCTYPE html><html lang="en"><head><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet"><link rel="stylesheet" href="/index.407d541d.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/css/ol.css" type="text/css"><script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.7.0/build/ol.js"></script><script src="https://unpkg.com/gyronorm@2.0.6/dist/gyronorm.complete.min.js"></script><title>Custom Map</title></head><body style="margin:0;padding:0"> <div id="map" class="map"></div> <div id="media_div"> <div id="title"></div> <div id="audio-content"></div> <div id="video-content"></div> <div id="text-content"></div> </div> <div id="click_pos_p"> <p> position : <code id="position"></code><br> clicked : <code id="click_pos_p"></code><br> </p> </div> <div id="show_media_button_section"> <button type="button" class="button" onclick="serve()">VIEW MEDIA</button> </div> <div id="info-bar" class="menu_bar_class"> <div id="nav_div"> <div id="nav_img"> <img id="nav-icon" src="/forward.0fa9983d.png" alt="Forward" width="65" height="65"> </div> <div id="nav_txt">Loading...</div> </div> </div> <script src="/index.411c950d.js" type="module"></script> </body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Custom Map</title>
+
+    <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <script src="https://unpkg.com/elm-pep"></script>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,URL,TextDecoder,Number.isInteger"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/index.26bb0253.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
+
+
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js" defer=""></script>
+    <script src="https://unpkg.com/gyronorm@2.0.6/dist/gyronorm.complete.min.js" defer=""></script>
+
+    <title>Custom Map</title>
+</head>
+<body>
+
+    <div id="map" class="map"></div>
+    <script src="/index.d3d83061.js" defer=""></script>
+
+    <section id="media-section">
+        <div id="media-content"></div>
+    </section>
+
+    <p id="click_pos_p">
+        position : <code id="position"></code><br>
+        clicked : <code id="click_pos"></code><br>
+    </p>
+
+    <section id="show_media_button_section">
+        <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
+    </section>
+
+    <section id="menu_bar_section">
+        <img id="nav-icon" src="/forward.edd4e6ea.png" alt="Forward">
+        <div id="nav_txt">Loading...</div>
+    </section>
+
+</body>
+</html>

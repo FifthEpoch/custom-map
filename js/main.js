@@ -1,4 +1,4 @@
-//import 'ol/ol.css';
+import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import Feature from 'ol/Feature';
@@ -39,14 +39,21 @@ const geojson_obj = {
             },
             'properties': {
                 'route': 'a',
-                'order': 0,
                 'name': 'Old Rainier Brewery Dr.',
-                'dir': 'Head North on Old Rainier Brewery Dr.',
-                'dir_icon': 'js/ui/forward.png',
-                'up_dir': 'turn left onto S. Stevens St.',
-                'up_dir_icon': 'js/ui/left.png',
-                'media-type': 'audio',
-                'media':'<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1462003022/size=small/bgcol=333333/linkcol=2ebd35/artwork=none/track=2455122445/transparent=true/" seamless><a href="https://regionalattraction.bandcamp.com/album/shadows-light">Shadows &amp; Light by Wind❏ws</a></iframe>',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'Turn left',
+                'asc_tran_icon': 'left',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media':'<iframe style="border: 0; width: 100%; height: 50px;" src="https://bandcamp.com/EmbeddedPlayer/album=1462003022/size=small/bgcol=333333/linkcol=2ebd35/artwork=none/track=2455122445/transparent=true/" seamless><a href="https://regionalattraction.bandcamp.com/album/shadows-light">Shadows &amp; Light by Wind❏ws</a></iframe>',
             }
         },
         {
@@ -66,14 +73,19 @@ const geojson_obj = {
                 'route': 'a',
                 'name': 'S Stevens St',
                 'order': 1,
-                'dir': 'head West on South Stevens Street toward Airport Way S.',
-                'dir_icon': 'js/ui/forward.png',
-                'up_dir': 'turn right onto Airport Way S.',
-                'up_dir_icon': 'js/ui/right.png',
-                'dn_dir': 'turn right onto Old Rainier Brewery Dr.',
-                'dn_dir_icon': 'js/ui/right.png',
-                'media-type': 'video',
-                'media': '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/31122911?h=5708fc8e4d&autoplay=1&loop=1&color=CAC9E8&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
+
+                'asc_dir': 'Head West',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'Turn right',
+                'asc_tran_icon': 'right',
+
+                'dsc_dir': 'Head East',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'Turn right',
+                'dsc_tran_icon': 'right',
+
+                'media-type': 'vid',
+                'media': '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/31122911?h=5708fc8e4d&autoplay=1&loop=1&color=CAC9E8&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100vw;height:auto;max-height:50vh;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
             }
         },
         {
@@ -91,14 +103,19 @@ const geojson_obj = {
                 'route': 'a',
                 'name': 'Airport Way S',
                 'order': 2,
-                'dir': 'Head North on Airport Way S.',
-                'dir_icon': 'js/ui/forward.png',
-                'up_dir': 'turn left onto Lander St.',
-                'up_dir_icon': 'js/ui/left.png',
-                'dn_dir': 'turn left onto S. Stevens St.',
-                'dn_dir_icon': 'js/ui/left.png',
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'Turn left',
+                'dsc_tran_icon': 'left',
+
                 'media-type': 'img',
-                'media': '<div style="width:100%;height:0;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/ncyIupJW3D8qs" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/halloween-mcdonalds-happy-meal-ncyIupJW3D8qs">via GIPHY</a></p>',
+                'media': '<div style="width:100vw;height:50vh;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/ncyIupJW3D8qs" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/halloween-mcdonalds-happy-meal-ncyIupJW3D8qs">via GIPHY</a></p>',
             }
         },
         {
@@ -397,12 +414,11 @@ function set_active_route(_active_feat){
                         active_route = _active_feat[0];
                         next_route = _active_feat[1];
                     }
-
                     render_tran_nav(active_route, next_route, is_ascending);
                 }
             }
         } else {    // no active route, no active feature >> error
-            el('media_button_div').style.display = "none";
+            el('show_media_button_section').style.display = "none";
             el('nav_txt').innerText = "You are current not on route, check out the map to get on a route.";
         }
     }
@@ -442,19 +458,20 @@ function onChangeHeading(event) {
 
 // NAVIGATION DIRECTIONS ------------------------------------------------------------------------
 
-// _isTran: 0 = not tran, -1 = downstream, 1 = upstream
 function render_nav(_feat, _is_asc){
     var nav_content = '';
     var nav_icon = '';
     if (_is_asc) {
         nav_content = _feat.get('asc_dir') + ' on ' + _feat.get('name');
         nav_icon = _feat.get('asc_icon');
+        console.log('nav_icon: ' + nav_icon);
     } else {
         nav_content = _feat.get('dsc_dir')+ ' on ' + _feat.get('name');
         nav_icon = _feat.get('dsc_icon');
+        console.log('nav_icon: ' + nav_icon);
     }
     el('nav_txt').innerText = nav_content;
-    el('nav-icon').src = './js/ui/' + nav_icon + '.png';
+    el('nav-icon').src = 'js/ui/' + nav_icon + '.png';
     el('nav-icon').alt = nav_icon;
     serve();
 }
@@ -477,16 +494,13 @@ function render_tran_nav(_feat, _next_feat, _is_asc){
 
 function serve(){
     if (active_route.get('media-type') === 'aud'){
-        el('media_div').style.display = 'block';
-        el('video-content').innerHTML = '';
-        el('audio-content').innerHTML = active_route.get('media');
+        el('media-section').style.display = 'block';
+        el('media-content').innerHTML = active_route.get('media');
     } else if (active_route.get('media-type') === 'vid') {
-        el('media_div').style.display = 'block';
-        el('audio-content').innerHTML = '';
-        el('video-content').innerHTML = active_route.get('media');
+        el('media-section').style.display = 'block';
+        el('media-content').innerHTML = active_route.get('media');
     } else if (active_route.get('media-type') === 'img') {
-        el('media_div').style.display = 'block';
-        el('audio-content').innerHTML = active_route.get('media');
-        el('video-content').innerHTML = '';
+        el('media-section').style.display = 'block';
+        el('media-content').innerHTML = active_route.get('media');
     }
 }

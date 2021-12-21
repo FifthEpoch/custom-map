@@ -27,6 +27,7 @@ html, body
   color: $default-font-color;
   width: 100vw;
   min-height: 100vh;
+  overflow: hidden;
   @include mq(768px)
   {
     font-size: 20px;
