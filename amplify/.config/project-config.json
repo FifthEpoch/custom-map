@@ -5,9 +5,9 @@
   "javascript": {
     "framework": "none",
     "config": {
-      "SourceDir": "js",
+      "SourceDir": "./",
       "DistributionDir": "dist",
-      "BuildCommand": "npm run-script build",
+      "BuildCommand": "parcel build index.html",
       "StartCommand": "npm run-script start"
     }
   },

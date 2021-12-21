@@ -25,19 +25,11 @@ html, body
   font-size: 16px;
   font-family: "Helvetica Neue", "Arial", sans-serif;
   color: $default-font-color;
-  width: 100%;
-  min-height: 100%;
+  width: 100vw;
+  min-height: 100vh;
   @include mq(768px)
   {
     font-size: 20px;
   }
-}
-
-section
-{
-  width: 90%;
-  max-width: 700px;
-  margin: auto;
-  border: none;
 }
 

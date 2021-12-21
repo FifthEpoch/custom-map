@@ -248,7 +248,7 @@ const styleFunction = function (feature) {
 
 const view = new View({
     center: [0, 0],
-    zoom: 18,
+    zoom: 19,
 });
 
 const map = new Map({
@@ -262,7 +262,7 @@ const map = new Map({
 });
 
 map.on('postcompose',function(e){
-    document.querySelector('canvas').style.filter="invert(85%)";
+    document.querySelector('canvas').style.filter="invert(87%)";
 });
 
 const box_v_layer = new VectorImg({
