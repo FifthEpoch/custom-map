@@ -1,4 +1,3 @@
-import '../css/sass/style.css';
 import {Map, View, Feature, Geolocation} from 'ol';
 import GeoJSON from 'ol/format/GeoJSON';
 import Point from 'ol/geom/Point';
