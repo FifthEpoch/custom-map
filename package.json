@@ -5,7 +5,7 @@
     "parcel": "^2.0.0-beta.1"
   },
   "dependencies": {
-    "ol": "^6.7.0"
+    "ol": "latest"
   },
   "scripts": {
     "start": "parcel serve index.html",
