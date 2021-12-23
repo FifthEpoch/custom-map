@@ -1,9 +1,9 @@
-import {Map, View, Feature, Geolocation} from 'ol';
-import GeoJSON from 'ol/format/GeoJSON';
-import Point from 'ol/geom/Point';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
-import {OSM, Vector as VectorSource} from 'ol/source';
-import {Tile as TileLayer, Vector as VectorLayer, VectorImage as VectorImg} from 'ol/layer';
+import {Map, View, Feature, Geolocation} from './ol';
+import GeoJSON from './ol/format/GeoJSON';
+import Point from './ol/geom/Point';
+import {Circle as CircleStyle, Fill, Stroke, Style} from './ol/style';
+import {OSM, Vector as VectorSource} from './ol/source';
+import {Tile as TileLayer, Vector as VectorLayer, VectorImage as VectorImg} from './ol/layer';
 
 var active_route = undefined;
 var active_features;
