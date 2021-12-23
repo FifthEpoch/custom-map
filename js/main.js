@@ -96,7 +96,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'right',
 
                 'media-type': 'vid',
-                'media': '<div style="padding:75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/31122911?h=5708fc8e4d&autoplay=1&loop=1&color=CAC9E8&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100vw;height:auto;max-height:50vh;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
+                'media': '<div style="width:100vw;height:auto;max-height:50vh;padding-bottom:73%;position:relative;"><iframe src="https://player.vimeo.com/video/31122911?h=5708fc8e4d&autoplay=1&loop=1&color=CAC9E8&title=0&byline=0&portrait=0" style="position:absolute" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
             }
         },
         {
@@ -126,7 +126,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'left',
 
                 'media-type': 'img',
-                'media': '<div style="width:100vw;height:50vh;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/ncyIupJW3D8qs" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/halloween-mcdonalds-happy-meal-ncyIupJW3D8qs">via GIPHY</a></p>',
+                'media': '<div style="width:100vw;height:auto;max-height:50vh;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/ncyIupJW3D8qs" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/halloween-mcdonalds-happy-meal-ncyIupJW3D8qs">via GIPHY</a></p>',
             }
         },
         {
@@ -156,7 +156,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'ud',
 
                 'media-type': 'vid',
-                'media': '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZjMR8KU6YEc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                'media': '<iframe src="https://www.youtube-nocookie.com/embed/ZjMR8KU6YEc" title="YouTube video player" style="width=100vw;height=auto;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
             }
         },
         {
@@ -186,7 +186,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'left',
 
                 'media-type': 'img',
-                'media': '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/dFDWuV7gIMMINpDhmC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/retro-digital-online-dFDWuV7gIMMINpDhmC">via GIPHY</a></p>',
+                'media': '<div style="width:100vw;height:auto;max-height:50vh;padding:2rem;">If we were able to take as the finest allegory of simulation the Borges tale where the cartographers of the Empire draw up a map so detailed that it ends up exactly covering the territory (but where, with the decline of the Empire this map becomes frayed and finally ruined, a few shreds still discernible in the deserts - the metaphysical beauty of this ruined abstraction, bearing witness to an imperial pride and rotting like a carcass, returning to the substance of the soil, rather as an aging double ends up being confused with the real thing), this fable would then have come full circle for us, and now has nothing but the discrete charm of second-order simulacra</div>',
             }
         },
         {
@@ -216,7 +216,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'forward',
 
                 'media-type': 'img',
-                'media': '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/dFDWuV7gIMMINpDhmC" width="auto" height="50%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>',
+                'media': '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/dFDWuV7gIMMINpDhmC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>',
             }
         },
         {
@@ -246,7 +246,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'right',
 
                 'media-type': 'aud',
-                'media': '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;">Original Music</a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;">SovietWave - Новые Дома</a></div>',
+                'media': '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
             }
         }
     ]

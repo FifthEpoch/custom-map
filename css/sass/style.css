@@ -1,4 +1,4 @@
-
+@import "./node_modules/ol/ol.css";
 * {
   margin: 0;
   padding: 0;
@@ -91,18 +91,18 @@ html, body {
 
 #nav_txt {
   position: fixed;
-  bottom: 1.3rem;
-  left: 5rem;
+  bottom: 2.2rem;
+  left: 4rem;
 }
 
 #media-section {
   display: none;
   position: fixed;
   width: 100%;
-  min-height: 48px;
+  min-height: 20px;
   max-height: 700px;
-  bottom: 11vh;
-  background-color: #4aa74a;
+  bottom: 10.5vh;
+  background-color: #030618;
 }
 
 .click_pos_div {
