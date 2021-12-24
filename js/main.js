@@ -455,13 +455,15 @@ gn.init().then(function () {
 });
 
 // create a new device orientation object set to track the device
-var deviceOrientation = new ol.DeviceOrientation({
-    tracking: true
-});
+var deviceOrientation = new ol.DeviceOrientation(
+    {
+        tracking: true
+    });
 // when the device changes heading, rotate the view so that
 // 'up' on the device points the direction we are facing
 deviceOrientation.on('change:heading', onChangeHeading);
-function onChangeHeading(event) {
+function onChangeHeading(event)
+{
     var heading = event.target.getHeading();
     console.log("heading changed: " + heading);
     view.setRotation(-heading);
@@ -472,7 +474,8 @@ function onChangeHeading(event) {
 function render_nav(_feat, _is_asc){
     var nav_content = '';
     var nav_icon = '';
-    if (_is_asc) {
+    if (_is_asc)
+    {
         nav_content = _feat.get('asc_dir') + ' on ' + _feat.get('name');
         nav_icon = _feat.get('asc_icon');
         console.log('nav_icon: ' + nav_icon);
@@ -487,10 +490,12 @@ function render_nav(_feat, _is_asc){
     serve();
 }
 
-function render_tran_nav(_feat, _next_feat, _is_asc){
+function render_tran_nav(_feat, _next_feat, _is_asc)
+{
     var nav_content = '';
     var nav_icon = '';
-    if (_is_asc) {
+    if (_is_asc)
+    {
         nav_content = _feat.get('asc_tran_dir') + ' on ' + _next_feat.get('name');
         nav_icon = _feat.get('asc_tran_icon');
     } else {
@@ -503,14 +508,10 @@ function render_tran_nav(_feat, _next_feat, _is_asc){
     serve();
 }
 
-function serve(){
-    if (active_route.get('media-type') === 'aud'){
-        el('media-section').style.display = 'block';
-        el('media-content').innerHTML = active_route.get('media');
-    } else if (active_route.get('media-type') === 'vid') {
-        el('media-section').style.display = 'block';
-        el('media-content').innerHTML = active_route.get('media');
-    } else if (active_route.get('media-type') === 'img') {
+function serve()
+{
+    if (el('media-content').innerHTML !== active_route.get('media'))
+    {
         el('media-section').style.display = 'block';
         el('media-content').innerHTML = active_route.get('media');
     }
