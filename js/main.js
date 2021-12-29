@@ -215,8 +215,8 @@ const geojson_obj = {
                 'dsc_tran_dir': 'Continue North',
                 'dsc_tran_icon': 'forward',
 
-                'media-type': 'img',
-                'media': '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/dFDWuV7gIMMINpDhmC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>',
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/426327090&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/alain-italofun" title="Alain Italofun" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/alain-italofun/casco_cybernetic-love" title="Casco_-_Cybernetic Love" target="_blank" style="color: #cccccc; text-decoration: none;">Casco_-_Cybernetic Love</a></div>',
             }
         },
         {
