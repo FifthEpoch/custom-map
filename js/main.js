@@ -4,6 +4,8 @@
 // import {Circle as CircleStyle, Fill, Stroke, Style} from './ol/style';
 // import {OSM, Vector as VectorSource} from './ol/source';
 // import {Tile as TileLayer, Vector as VectorLayer, VectorImage as VectorImg} from './ol/layer';
+// import {fromCircle} from 'ol/geom/Polygon';
+
 var Map                 = ol.Map;
 var View                = ol.View;
 var Feature             = ol.Feature;
@@ -23,7 +25,15 @@ var VectorImg           = ol.layer.VectorImage;
 var active_route = undefined;
 var active_features;
 var is_ascending = true;
+var served = false;
 
+var current_media_route = undefined;
+var current_media_order = undefined;
+
+
+const circle_route_01 = ol.geom.Polygon.fromCircle(
+    new ol.geom.Circle([-13616498.997187842, 6042863.7403398305], 100)
+)
 
 
 // ROUTE DATA --------------------------------------------------------------------------------
@@ -156,7 +166,7 @@ const geojson_obj = {
                 'dsc_tran_icon': 'ud',
 
                 'media-type': 'vid',
-                'media': '<iframe src="https://www.youtube-nocookie.com/embed/ZjMR8KU6YEc" title="YouTube video player" style="width=100vw;height=auto;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                'media': '<div class="videoWrapper"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/KcvVR4NVYwk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>',
             }
         },
         {
@@ -215,8 +225,8 @@ const geojson_obj = {
                 'dsc_tran_dir': 'Continue North',
                 'dsc_tran_icon': 'forward',
 
-                'media-type': 'aud',
-                'media': '<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/426327090&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/alain-italofun" title="Alain Italofun" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/alain-italofun/casco_cybernetic-love" title="Casco_-_Cybernetic Love" target="_blank" style="color: #cccccc; text-decoration: none;">Casco_-_Cybernetic Love</a></div>',
+                'media-type': 'vid',
+                'media': '<div class="videoWrapper"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cpa7KLeJJjQ" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>',
             }
         },
         {
@@ -248,7 +258,685 @@ const geojson_obj = {
                 'media-type': 'aud',
                 'media': '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
             }
-        }
+        },
+        // {   // Circle
+        //     'type': 'Feature',
+        //     'geometry': {
+        //         'type': 'Polygon',
+        //         'coordinates': [
+        //             circle_route_01.getCoordinates()[0]
+        //         ],
+        //     },
+        //     'properties': {
+        //         'route': 'c',
+        //         'name': 'E. Pike St.',
+        //         'order': 0,
+        //
+        //         'asc_dir': 'Enter Cafe Vita',
+        //         'asc_icon': 'forward',
+        //         'asc_tran_dir': 'ud',
+        //         'asc_tran_icon': 'ud',
+        //
+        //         'dsc_dir': 'Enter Cafe Vita',
+        //         'dsc_icon': 'forward',
+        //         'dsc_tran_dir': 'ud',
+        //         'dsc_tran_icon': 'ud',
+        //
+        //         'media-type': 'aud',
+        //         'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+        //     }
+        // },
+        {   // Cobblestone alley/street
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13617510.462279076,6043384.8578523054],
+                    [-13617549.137532657,6043273.294620822],
+                    [-13617478.62957036,6043315.837399761],
+                ]],
+            },
+            'properties': {
+                'route': 'd',
+                'name': 'the cobblestone alley',
+                'order': 0,
+
+                'asc_dir': 'Continue on',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Continue on',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Old bus stop gazebo shelter
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13612735.67442037,6043624.401813754],
+                    [-13612754.532030247,6043595.425486381],
+                    [-13612704.168413624,6043571.96845946],
+                    [-13612694.969579536,6043618.192600746],
+                ]],
+            },
+            'properties': {
+                'route': 'e',
+                'name': 'the gazebo',
+                'order': 0,
+
+                'asc_dir': 'Enter',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Enter',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // El Rio Masonry Detail
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13612735.67442037,6043624.401813754],
+                    [-13612754.532030247,6043595.425486381],
+                    [-13612704.168413624,6043571.96845946],
+                    [-13612694.969579536,6043618.192600746],
+                ]],
+            },
+            'properties': {
+                'route': 'e',
+                'name': 'the gazebo',
+                'order': 0,
+
+                'asc_dir': 'Enter',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Enter',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Sculpture Park near Expedia
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13623044.88737729,6045109.779023631],
+                    [-13623040.942548627,6045004.785891528],
+                    [-13622998.459778413,6045025.1169315595],
+                    [-13622995.425294826,6045072.7583238715],
+                    [-13623019.39771516,6045124.3445448475],
+                ]],
+            },
+            'properties': {
+                'route': 'f',
+                'name': 'the staircase',
+                'order': 0,
+
+                'asc_dir': 'Sit on',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Sit on',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Little Howe Park
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13620429.279183032,6046604.255172952],
+                    [-13620430.822666027,6046463.798220351],
+                    [-13620295.767903911,6046464.569961849],
+                    [-13620294.224420914,6046598.852982467],
+                ]],
+            },
+            'properties': {
+                'route': 'g',
+                'name': 'Little Howe Park',
+                'order': 0,
+
+                'asc_dir': 'Enter',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Enter',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Grassy green space with big trees by I/5
+            // Boylston Ave E and E Hamlin St
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13616978.478793971,6048333.312282038],
+                    [-13616972.060063979,6048120.327150491],
+                    [-13616951.636832187,6048133.748131383],
+                    [-13616916.042056778,6048437.179003723],
+                ]],
+            },
+            'properties': {
+                'route': 'h',
+                'name': 'the grassy green space next to I/5',
+                'order': 0,
+
+                'asc_dir': 'Enter',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Enter',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Cement wall polygon #1
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13623017.288263552,6045820.113356535],
+                    [-13623024.227720967,6045803.287458593],
+                    [-13622957.50559556,6045790.902582991],
+                    [-13622956.356566792,6045806.6517026005],
+                ]],
+            },
+            'properties': {
+                'route': 'i',
+                'name': 'West Galer St Flyover',
+                'order': 0,
+
+                'asc_dir': 'Head west',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head East',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Cement wall polygon #2
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13623017.147036798,6045819.3215542773],
+                    [-13623030.779018061,6045789.760908256],
+                    [-13623028.172166968,6045767.3213550095],
+                    [-13623028.18878126,6045767.028627016],
+                    [-13623016.500345564,6045767.695812289],
+                    [-13622999.752280513,6045815.8501909375],
+                ]],
+            },
+            'properties': {
+                'route': 'i',
+                'name': 'the cement wall',
+                'order': 1,
+
+                'asc_dir': 'Walk across',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'Turn left',
+                'asc_tran_icon': 'left',
+
+                'dsc_dir': 'Walk across',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'Turn right',
+                'dsc_tran_icon': 'right',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Cement wall polygon #3
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13623031.104171539,6045790.356016258],
+                    [-13623028.27013913,6045766.9752488965],
+                    [-13622949.625739826,6045772.6433137115],
+                    [-13622949.271485774,6045784.687951443],
+                ]],
+            },
+            'properties': {
+                'route': 'i',
+                'name': 'W Galer St',
+                'order': 2,
+
+                'asc_dir': 'Head east',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'Turn left',
+                'asc_tran_icon': 'left',
+
+                'dsc_dir': 'Head west',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'Turn right',
+                'dsc_tran_icon': 'right',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // David Rodgers Park
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13621144.241467783,6048094.20287968],
+                    [-13621146.34257836,6047974.439576811],
+                    [-13621113.425179327,6047990.548091233],
+                    [-13621020.976313954,6047924.012922972],
+                    [-13620854.288208207,6047900.900706629],
+                    [-13620852.187097631,6047938.0203268165],
+                    [-13621006.014371566,6047959.037683148],
+                    [-13621082.608890869,6048002.4543845],
+                    [-13621069.301857216,6048052.180668147],
+                ]],
+            },
+            'properties': {
+                'route': 'j',
+                'name': 'the pedestrian path',
+                'order': 0,
+
+                'asc_dir': 'Forward',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Forward',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'udt',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Alley from NE 48th St to NE 50th St
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13613137.655317388,6051286.481707302],
+                    [-13613135.191061473,6051068.805768013],
+                    [-13613103.155734558,6051068.805768013],
+                    [-13613105.619990474,6051284.838870024],
+                ]],
+            },
+            'properties': {
+                'route': 'k',
+                'name': 'the alley',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Alley from 30th Ave NE to 27th Ave NE
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13614209.071281241,6051736.438651035],
+                    [-13614207.542841136,6051702.048748677],
+                    [-13613888.098859234,6051703.577188781],
+                    [-13613890.39151939,6051737.202871087],
+                ]],
+            },
+            'properties': {
+                'route': 'l',
+                'name': 'the alley',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Alley between 36th Ave NE and 37th Ave NE
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13613139.26811645,6050910.409229135],
+                    [-13613133.136932034,6050735.434658465],
+                    [-13613103.42426909,6050743.452361165],
+                    [-13613104.36752823,6050908.051081282],
+                ]],
+            },
+            'properties': {
+                'route': 'm',
+                'name': 'the alley',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Olive way and Melrose Ave
+            // Grassy I/5 entrance triangle
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13617510.412448747,6043399.658141944],
+                    [-13617556.588068342,6043267.624729665],
+                    [-13617473.255504854,6043316.325578457],
+                ]],
+            },
+            'properties': {
+                'route': 'n',
+                'name': 'the grassy triagle by I/5 triangle',
+                'order': 0,
+
+                'asc_dir': 'Enter',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Enter',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Old stairway connecting 2nd Ave N to Highland Dr
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13620251.563216716,6045479.0135424],
+                    [-13620253.690459084,6045426.541564006],
+                    [-13620238.563402249,6045428.196085847],
+                    [-13620237.85432146,6045478.540821874],
+                ]],
+            },
+            'properties': {
+                'route': 'o',
+                'name': 'the old stairway',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Dr Blanche Lavizzo Park
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13614835.50447619,6040764.499551332],
+                    [-13614845.009284312,6040733.332622377],
+                    [-13614804.779631333,6040735.100958771],
+                    [-13614805.663799532,6040766.046845677],
+                ]],
+            },
+            'properties': {
+                'route': 'p',
+                'name': 'path along the amphitheater',
+                'order': 0,
+
+                'asc_dir': 'Forward',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Forward',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Brick stairway at the Seattle Central College
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13616828.935093049,6043214.181244548],
+                    [-13616826.005523741,6043200.021659557],
+                    [-13616771.320229981,6043199.533398005],
+                    [-13616773.029145412,6043213.4488522215],
+                ]],
+            },
+            'properties': {
+                'route': 'q',
+                'name': 'the brick stairway',
+                'order': 0,
+
+                'asc_dir': 'Head East',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head West',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Public stair sitting area outside Seattle Courthouse
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13618477.4758475,6043038.288984778],
+                    [-13618490.254387286,6043010.247189135],
+                    [-13618400.094689902,6042929.316437153],
+                    [-13618320.583775679,6043019.121175098],
+                    [-13618366.728502685,6043030.834836569],
+                    [-13618403.644284291,6043070.235334245],
+                    [-13618413.938108008,6043055.327037827],
+                    [-13618385.186393488,6043030.834836569],
+                    [-13618424.231931726,6042984.335150124],
+                    [-13618477.83080694,6043039.353863093],
+                ]],
+            },
+            'properties': {
+                'route': 'r',
+                'name': 'the staircase outside the courthouse',
+                'order': 0,
+
+                'asc_dir': 'Walk',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Walk',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Thomas St and 8th Ave N
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13619001.603362441,6044026.580683811],
+                    [-13619004.608342148,6044001.28877127],
+                    [-13618941.002938332,6044001.789601221],
+                    [-13618941.503768284,6044025.579023909],
+                ]],
+            },
+            'properties': {
+                'route': 's',
+                'name': 'Thomas St.',
+                'order': 0,
+
+                'asc_dir': 'Head East',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head West',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Ancient wooden garage
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13614279.097286845,6045745.214346897],
+                    [-13614279.333647108,6045710.233027968],
+                    [-13614200.152958993,6045706.923984285],
+                    [-13614197.789356362,6045743.559825055],
+                ]],
+            },
+            'properties': {
+                'route': 't',
+                'name': 'toward Ancient wooden garage',
+                'order': 0,
+
+                'asc_dir': 'Head',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
+        {   // Pedestrian section of Interlochen Trail/street
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[
+                    [-13615384.44028027,6046723.516455431],
+                    [-13615346.389461588,6046586.981164868],
+                    [-13615346.389461588,6046461.637291565],
+                    [-13615299.3855091,6046448.207590854],
+                    [-13615204.258462396,6046556.764338269],
+                    [-13615047.578620767,6046481.781842631],
+                    [-13614992.740676196,6046490.734976439],
+                    [-13615204.258462396,6046607.125715935],
+                    [-13615313.934351537,6046499.688110246],
+                    [-13615297.147225648,6046604.887432483],
+                    [-13615336.317186056,6046717.920746801],
+                ]],
+            },
+            'properties': {
+                'route': 'u',
+                'name': 'Interlochen Trail',
+                'order': 0,
+
+                'asc_dir': 'Head North',
+                'asc_icon': 'forward',
+                'asc_tran_dir': 'ud',
+                'asc_tran_icon': 'ud',
+
+                'dsc_dir': 'Head South',
+                'dsc_icon': 'forward',
+                'dsc_tran_dir': 'ud',
+                'dsc_tran_icon': 'ud',
+
+                'media-type': 'aud',
+                'media': '<iframe width="100%" height="166" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/599169165&color=%239c9c7c&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-originalmusic" title="Original Music" target="_blank" style="color: #cccccc; text-decoration: none;"></a> · <a href="https://soundcloud.com/user-originalmusic/sovietwave-novye-doma" title="SovietWave - Новые Дома" target="_blank" style="color: #cccccc; text-decoration: none;"></a></div>',
+            }
+        },
     ]
 };
 
@@ -391,17 +1079,20 @@ geolocation.on('error', function (error) {
 function set_active_route(_active_feat){
     console.log("_active_feat received with length " + _active_feat.length)
     console.log("active route: " + active_route);
+    el('show_media_button_section').style.display = "block";
     if (active_route !== undefined){  // user has already been placed in a route
         if (_active_feat.length > 0) {
             if (_active_feat.length === 1) {
                 var is_new_route = (active_route !== _active_feat[0]);
-                if (is_new_route) { active_route = _active_feat[0]; }
-                render_nav(active_route, is_ascending);
+                if (is_new_route) {
+                    active_route = _active_feat[0];
+                    render_nav(active_route, is_ascending);
+                }
             } else {    // there are 2 possible route
                 var next_route;
                 is_ascending = _active_feat[0].get('order') < _active_feat[1].get('order');
                 if (active_route === _active_feat[1]) {
-                    is_ascending = !is_ascending
+                    is_ascending = !is_ascending;
                     next_route = _active_feat[0];
                 } else {
                     next_route = _active_feat[1];
@@ -416,7 +1107,6 @@ function set_active_route(_active_feat){
                     active_route = _active_feat[0];
                     render_nav(active_route, is_ascending);
                 } else {    // _features.length === 2
-                    // have user pick ?
                     var next_route;
                     if (_active_feat[0].get('order') > _active_feat[1].get('order')) {
                         active_route = _active_feat[1];
@@ -505,14 +1195,15 @@ function render_tran_nav(_feat, _next_feat, _is_asc)
     el('nav_txt').innerText = nav_content;
     el('nav-icon').src = './js/ui/' + nav_icon + '.png';
     el('nav-icon').alt = nav_icon;
-    serve();
 }
 
 function serve()
 {
-    if (el('media-content').innerHTML !== active_route.get('media'))
+    if (current_media_order !== active_route.get('order') || current_media_route !== active_route.get('route'))
     {
         el('media-section').style.display = 'block';
         el('media-content').innerHTML = active_route.get('media');
+        current_media_route = active_route.get('route');
+        current_media_order = active_route.get('order');
     }
 }

@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
 
-    <!-- <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script> -->
     <script src="https://unpkg.com/gyronorm@2.0.6/dist/gyronorm.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
 
@@ -25,22 +24,25 @@
     <script src="./js/main.js" type="module"></script>
 
     <section id="media-section">
+        <div id="media-background"></div>
         <div id="media-content"></div>
     </section>
 
-    <p id="click_pos_p">
+    <p id="click_pos_p" class="click_pos_div">
         position : <code id="position"></code><br>
         clicked : <code id="click_pos"></code><br>
     </p>
 
-    <section id="show_media_button_section">
-        <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
-    </section>
+    <div class="grid-div">
+        <div class="show_media_button">
+            <button type="button" class="button" onclick="serve()">VIEW MEDIA</button>
+        </div>
 
-    <section id="menu_bar_section">
-        <img id="nav-icon" src="./js/ui/forward.png" alt="Forward">
-        <div id="nav_txt">Loading...</div>
+        <div class="menu_bar">
+            <img id="nav-icon" src="./js/ui/forward.png" alt="Forward">
+            <div id="nav_txt">Loading...</div>
     </section>
+    </div>div>
 
 </body>
 </html>
